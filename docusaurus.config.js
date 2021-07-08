@@ -17,18 +17,18 @@ module.exports = {
       title: 'zUCD Docs',
       logo: {
         alt: 'zUCD Docs Logo',
-        src: 'img/logo.svg',
+        src: 'img/deploy.png',
       },
       items: [
         {
           type: 'doc',
           docId: 'intro',
           position: 'left',
-          label: 'Tutorial',
+          label: 'Docs',
         },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/ronniegeraghty/zUCD-docs',
           label: 'GitHub',
           position: 'right',
         },
@@ -72,7 +72,7 @@ module.exports = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/ronniegeraghty/zUCD-docs',
             },
           ],
         },
@@ -92,13 +92,13 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/',
+            'https://github.com/ronniegeraghty/zUCD-docs/edit/main/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/blog/',
+            'https://github.com/ronniegeraghty/zUCD-docs/edit/main/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
