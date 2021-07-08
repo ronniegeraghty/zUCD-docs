@@ -5,7 +5,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 module.exports = {
   title: 'zUCD Docs',
   tagline: 'Dinosaurs are cool',
-  url: 'https://_username_.github.io',
+  url: 'https://ronniegeraghty.github.io',
   baseUrl: '/zUCD-docs/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
