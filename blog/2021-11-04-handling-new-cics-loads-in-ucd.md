@@ -9,6 +9,9 @@ tags: [UCD, Z, DevOps, CICS]
 ---
 
 <!-- omit in toc -->
+# *~*In Progress*~*
+
+<!-- omit in toc -->
 ## Overview
 In this blog post we'll look at how to set up an UrbanCode Deploy (UCD)Process that handles deploying an updated to a CICS application, where the incremental version contains updates to Load Modules already loaded into the CICS Region as well as Load Modules that are new and thus not loaded into the CICS Region yet. The UCD process will handle generating a list of CICS specific Load Modules in the incremental version we are deploying, using this list to check which of the Load Modules have been loaded into CICS already then generating a list of these already loaded Load Modules, then running NEWCOPYs on the new version on these already loaded Load Modules. 
 
