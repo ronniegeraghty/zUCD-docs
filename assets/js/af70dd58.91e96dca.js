@@ -1,0 +1,1 @@
+(self.webpackChunkz_ucd_docs=self.webpackChunkz_ucd_docs||[]).push([[347],{8228:function(s){"use strict";s.exports=JSON.parse('{"allTagsPath":"/zUCD-docs/blog/tags","slug":"dev-ops","name":"devops","count":1,"permalink":"/zUCD-docs/blog/tags/dev-ops"}')}}]);

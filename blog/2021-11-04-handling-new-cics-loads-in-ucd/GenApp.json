@@ -1,0 +1,2050 @@
+{
+    "name": "GenApp",
+    "description": "CICS components of GenApp Application",
+    "created": 1620098419785,
+    "componentType": "ZOS",
+    "ignoreQualifiers": 0,
+    "importAutomatically": false,
+    "useVfs": false,
+    "active": true,
+    "deleted": false,
+    "defaultVersionType": "INCREMENTAL",
+    "cleanupDaysToKeep": 0,
+    "cleanupCountToKeep": 0,
+    "componentTemplate": {
+        "securityResourceId": "4322d864-cf32-43b7-8f58-b2b9e0b20238",
+        "path": "componentTemplates\/73cd1cf1-d811-4087-b89b-67461bf039af",
+        "name": "MVSCOMPONENT",
+        "description": "Template component which stores and deploys z\/OS data set artifacts",
+        "ignoreQualifiers": 0,
+        "componentType": "ZOS",
+        "tags": [],
+        "active": true,
+        "envPropDefs": [
+            {
+                "name": "deploy.env.pds.mapping",
+                "label": "deploy.env.pds.mapping",
+                "pattern": "",
+                "type": "TEXTAREA",
+                "required": false,
+                "description": "Specify the PDS packaged, and where to deploy them in the mapping table. Each line is a mapping rule with the format of From PDS,To PDS. * can be used in From PDS to match any characters. When multiple rules have the same From PDS, only the first one is used. The value can be overrode by property with higher order of precedence, for example, Agent property or Resource property.",
+                "placeholder": ""
+            },
+            {
+                "name": "deploy.env.hfs.targetdir",
+                "label": "deploy.env.hfs.targetdir",
+                "pattern": "",
+                "type": "TEXT",
+                "required": false,
+                "description": "Specify a target directory to deploy HFS files",
+                "placeholder": ""
+            },
+            {
+                "name": "jes.host",
+                "label": "jes.host",
+                "pattern": "",
+                "type": "TEXT",
+                "value": "localhost",
+                "required": false,
+                "description": "Hostname of Job server. Use localhost unless you have a specific requirement to submit job to another z\/OS. ",
+                "placeholder": ""
+            },
+            {
+                "name": "jes.user",
+                "label": "jes.user",
+                "pattern": "",
+                "type": "TEXT",
+                "required": false,
+                "description": "Userid to logon to JES subsystem.",
+                "placeholder": ""
+            },
+            {
+                "name": "jes.password",
+                "label": "jes.password",
+                "pattern": "",
+                "type": "SECURE",
+                "required": false,
+                "description": "Password to logon to JES subsystem.",
+                "placeholder": ""
+            },
+            {
+                "name": "jes.monitor.port",
+                "label": "jes.monitor.port",
+                "pattern": "",
+                "type": "TEXT",
+                "value": "6715",
+                "required": false,
+                "description": "JES job monitor port (1-65535). Default is 6715.",
+                "placeholder": ""
+            }
+        ],
+        "resPropDefs": [],
+        "propDefs": [
+            {
+                "name": "ucd.repository.host",
+                "label": "ucd.repository.host",
+                "pattern": "",
+                "type": "TEXT",
+                "required": false,
+                "description": "Hostname of the FTP server where you get version artifacts. Required to use FTP Artifacts step. ",
+                "placeholder": ""
+            },
+            {
+                "name": "ucd.repository.location",
+                "label": "ucd.repository.location",
+                "pattern": "",
+                "type": "TEXT",
+                "required": false,
+                "description": "The location of the repository where the z\/OS deploy toolkit stores artifacts. Required to use Copy Artifacts or FTP Artifacts steps. ",
+                "placeholder": ""
+            },
+            {
+                "name": "ucd.repository.user",
+                "label": "ucd.repository.user",
+                "pattern": "",
+                "type": "TEXT",
+                "required": false,
+                "description": "FTP username. Required to use FTP Artifacts step. ",
+                "placeholder": ""
+            },
+            {
+                "name": "ucd.repository.password",
+                "label": "ucd.repository.password",
+                "pattern": "",
+                "type": "SECURE",
+                "required": false,
+                "description": "FTP password. Required to use FTP Artifacts step. ",
+                "placeholder": ""
+            }
+        ],
+        "properties": [],
+        "processes": [
+            {
+                "name": "Deploy",
+                "description": "Deploy data sets. Version artifacts are fetched from code station located in the same z\/OS.",
+                "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                "takesVersion": true,
+                "inventoryActionType": "ADD",
+                "status": "Active",
+                "configActionType": "ADD",
+                "active": true,
+                "path": "componentTemplates\/73cd1cf1-d811-4087-b89b-67461bf039af\/processes\/44eccd5c-98d2-4030-b382-10839a2407bb",
+                "deleted": false,
+                "propDefs": [],
+                "rootActivity": {
+                    "edges": [
+                        {
+                            "to": "8328a7e245b2d6f356e73791755c2a",
+                            "from": "Deploy Data Sets",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Copy Artifacts",
+                            "type": "ALWAYS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Deploy Data Sets",
+                            "from": "Copy Artifacts",
+                            "type": "SUCCESS",
+                            "value": ""
+                        }
+                    ],
+                    "offsets": [
+                        {
+                            "name": "Deploy Data Sets",
+                            "x": -55,
+                            "y": 260,
+                            "h": 60,
+                            "w": 210
+                        },
+                        {
+                            "name": "Copy Artifacts",
+                            "x": -45,
+                            "y": 124,
+                            "h": 60,
+                            "w": 180
+                        },
+                        {
+                            "name": "8328a7e245b2d6f356e73791755c2a",
+                            "x": 0,
+                            "y": 420,
+                            "h": 50,
+                            "w": 90
+                        }
+                    ],
+                    "layoutMode": "unknown",
+                    "type": "graph",
+                    "name": "931de4ed-c618-4be0-bd4d-b29046732ed9",
+                    "children": [
+                        {
+                            "type": "finish",
+                            "name": "8328a7e245b2d6f356e73791755c2a",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 56,
+                            "commandName": "Copy Artifacts",
+                            "pluginName": "zOS Utility",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "directoryOffset": ".",
+                                "basePath": "${p:ucd.repository.location}",
+                                "versionName": "${p:version.name}",
+                                "componentName": "${p:component.name}",
+                                "resourceId": "${p:resource.id}",
+                                "repositoryType": "${p?:version\/ucd.repository.type}"
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Copy Artifacts",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 56,
+                            "commandName": "Deploy Data Sets",
+                            "pluginName": "zOS Utility",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "pdsMapping": "${p?:deploy.env.pds.mapping}",
+                                "incrementalMode": "FULL",
+                                "containerFilter": "",
+                                "deleteCurrentContents": "false",
+                                "printLogs": "false",
+                                "checkAccess": "true",
+                                "doBackup": "true",
+                                "allowCreateDataset": "TRUE",
+                                "hfsTargetDir": "${p?:deploy.env.hfs.targetdir}",
+                                "allowCreateDirectory": "TRUE",
+                                "binderPath": "\/usr\/lib",
+                                "deployBasePath": "${BUZ_DEPLOY_BASE}",
+                                "tempDsnPrefix": "${p?:BUZ_TMP_DSN_PREFIX}",
+                                "versionMerge": "${p?:version\/ucd.version.ismerged}",
+                                "versionName": "${p:version.name}",
+                                "versionId": "${p:version.id}",
+                                "versionType": "${p:version.type}",
+                                "componentName": "${p:component.name}",
+                                "resourceId": "${p:resource.id}",
+                                "componentId": "${p:component.id}"
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Deploy Data Sets",
+                            "children": []
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "Deploy - get artifacts from CodeStation",
+                "description": "Deploy data sets. Version artifacts are fetched from UrbanCode Deploy server CodeStation. ",
+                "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                "takesVersion": true,
+                "inventoryActionType": "ADD",
+                "status": "Active",
+                "configActionType": "ADD",
+                "active": true,
+                "path": "componentTemplates\/73cd1cf1-d811-4087-b89b-67461bf039af\/processes\/9320a128-94bd-47ca-868d-91ff04bad835",
+                "deleted": false,
+                "propDefs": [],
+                "rootActivity": {
+                    "edges": [
+                        {
+                            "to": "Deploy Data Sets",
+                            "from": "Download Artifacts for zOS",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "8328a7e245b2d6f356e73791755c2a",
+                            "from": "Deploy Data Sets",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Download Artifacts for zOS",
+                            "type": "ALWAYS",
+                            "value": ""
+                        }
+                    ],
+                    "offsets": [
+                        {
+                            "name": "Deploy Data Sets",
+                            "x": -65,
+                            "y": 250,
+                            "h": 60,
+                            "w": 210
+                        },
+                        {
+                            "name": "8328a7e245b2d6f356e73791755c2a",
+                            "x": -5,
+                            "y": 390,
+                            "h": 50,
+                            "w": 90
+                        },
+                        {
+                            "name": "Download Artifacts for zOS",
+                            "x": -90,
+                            "y": 120,
+                            "h": 60,
+                            "w": 260
+                        }
+                    ],
+                    "layoutMode": "unknown",
+                    "type": "graph",
+                    "name": "eaaaeb71-d3e7-45e2-b0f4-07782cdd09ab",
+                    "children": [
+                        {
+                            "type": "finish",
+                            "name": "8328a7e245b2d6f356e73791755c2a",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 56,
+                            "commandName": "Deploy Data Sets",
+                            "pluginName": "zOS Utility",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "pdsMapping": "${p?:deploy.env.pds.mapping}",
+                                "incrementalMode": "FULL",
+                                "containerFilter": "",
+                                "deleteCurrentContents": "false",
+                                "printLogs": "false",
+                                "checkAccess": "true",
+                                "doBackup": "true",
+                                "allowCreateDataset": "TRUE",
+                                "hfsTargetDir": "${p?:deploy.env.hfs.targetdir}",
+                                "allowCreateDirectory": "TRUE",
+                                "binderPath": "\/usr\/lib",
+                                "deployBasePath": "${BUZ_DEPLOY_BASE}",
+                                "tempDsnPrefix": "${p?:BUZ_TMP_DSN_PREFIX}",
+                                "versionMerge": "${p?:version\/ucd.version.ismerged}",
+                                "versionName": "${p:version.name}",
+                                "versionId": "${p:version.id}",
+                                "versionType": "${p:version.type}",
+                                "componentName": "${p:component.name}",
+                                "resourceId": "${p:resource.id}",
+                                "componentId": "${p:component.id}"
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Deploy Data Sets",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 31,
+                            "commandName": "Download Artifacts for zOS",
+                            "pluginName": "UrbanCode Deploy Versioned File Storage",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "directoryOffset": ".",
+                                "versionId": "${p:version.id}",
+                                "versionName": "${p:version.name}",
+                                "serverUrl": "${p:server.url}",
+                                "compId": "${p:component.id}",
+                                "repositoryType": "${p?:version\/ucd.repository.type}",
+                                "resourceId": "${p:resource.id}"
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Download Artifacts for zOS",
+                            "children": []
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "Deploy - get artifacts using FTP",
+                "description": "Deploy data sets. Version artifacts are fetched from code station using FTP",
+                "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                "takesVersion": true,
+                "inventoryActionType": "ADD",
+                "status": "Active",
+                "configActionType": "ADD",
+                "active": true,
+                "path": "componentTemplates\/73cd1cf1-d811-4087-b89b-67461bf039af\/processes\/3fbf7787-6a10-4e34-9a84-0a9bf2e9a8f8",
+                "deleted": false,
+                "propDefs": [],
+                "rootActivity": {
+                    "edges": [
+                        {
+                            "to": "FTP Artifacts",
+                            "type": "ALWAYS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Deploy Data Sets",
+                            "from": "FTP Artifacts",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "cb186e01e1acada63dfc6eef9222cd",
+                            "from": "Deploy Data Sets",
+                            "type": "SUCCESS",
+                            "value": ""
+                        }
+                    ],
+                    "offsets": [
+                        {
+                            "name": "FTP Artifacts",
+                            "x": -50,
+                            "y": 122,
+                            "h": 60,
+                            "w": 170
+                        },
+                        {
+                            "name": "cb186e01e1acada63dfc6eef9222cd",
+                            "x": 5,
+                            "y": 430,
+                            "h": 50,
+                            "w": 90
+                        },
+                        {
+                            "name": "Deploy Data Sets",
+                            "x": -50,
+                            "y": 271,
+                            "h": 60,
+                            "w": 210
+                        }
+                    ],
+                    "layoutMode": "unknown",
+                    "type": "graph",
+                    "name": "0ac7c073-694d-4493-8fe8-6f71616bda5c",
+                    "children": [
+                        {
+                            "type": "finish",
+                            "name": "cb186e01e1acada63dfc6eef9222cd",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": true,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 56,
+                            "commandName": "FTP Artifacts",
+                            "pluginName": "zOS Utility",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "directoryOffset": ".",
+                                "protocol": "FTP",
+                                "hostName": "${p:ucd.repository.host}",
+                                "port": "",
+                                "userid": "${p:ucd.repository.user}",
+                                "password": "${p:ucd.repository.password}",
+                                "basePath": "${p:ucd.repository.location}",
+                                "versionName": "${p:version.name}",
+                                "componentName": "${p:component.name}",
+                                "resourceId": "${p:resource.id}",
+                                "repositoryType": "${p?:version\/ucd.repository.type}",
+                                "usePassticket": "true",
+                                "applID": "FTPAPPL",
+                                "irrracfJarFile": "\/usr\/include\/java_classes\/IRRRacf.jar",
+                                "irrracfLibraryPath": "\/usr\/lib",
+                                "useKeybaseAuth": "false",
+                                "keyfile": "${p?:ucd.repository.keyfile}",
+                                "passphrase": "${p?:ucd.repository.passphrase}"
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "FTP Artifacts",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 56,
+                            "commandName": "Deploy Data Sets",
+                            "pluginName": "zOS Utility",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "pdsMapping": "${p?:deploy.env.pds.mapping}",
+                                "incrementalMode": "FULL",
+                                "containerFilter": "",
+                                "deleteCurrentContents": "false",
+                                "printLogs": "false",
+                                "checkAccess": "true",
+                                "doBackup": "true",
+                                "allowCreateDataset": "TRUE",
+                                "hfsTargetDir": "${p?:deploy.env.hfs.targetdir}",
+                                "allowCreateDirectory": "TRUE",
+                                "binderPath": "\/usr\/lib",
+                                "deployBasePath": "${BUZ_DEPLOY_BASE}",
+                                "tempDsnPrefix": "${p?:BUZ_TMP_DSN_PREFIX}",
+                                "versionMerge": "${p?:version\/ucd.version.ismerged}",
+                                "versionName": "${p:version.name}",
+                                "versionId": "${p:version.id}",
+                                "versionType": "${p:version.type}",
+                                "componentName": "${p:component.name}",
+                                "resourceId": "${p:resource.id}",
+                                "componentId": "${p:component.id}"
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Deploy Data Sets",
+                            "children": []
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "Remove all versions",
+                "description": "Remove all versions in an environment including the backup created during version deployment. Use this process when you want to start next round of development with a clean environment.  Audit history is available even if versions have been removed from the environment.  ",
+                "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                "takesVersion": false,
+                "status": "",
+                "active": true,
+                "path": "componentTemplates\/73cd1cf1-d811-4087-b89b-67461bf039af\/processes\/e10bf6d6-7a14-4790-bcc1-aed4688c26f2",
+                "deleted": false,
+                "propDefs": [],
+                "rootActivity": {
+                    "edges": [
+                        {
+                            "to": "7edd88f82ceb313ee19d35d0c10ed3",
+                            "from": "Remove All Versions",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Remove All Versions",
+                            "type": "ALWAYS",
+                            "value": ""
+                        }
+                    ],
+                    "offsets": [
+                        {
+                            "name": "Remove All Versions",
+                            "x": -70,
+                            "y": 118,
+                            "h": 60,
+                            "w": 220
+                        },
+                        {
+                            "name": "7edd88f82ceb313ee19d35d0c10ed3",
+                            "x": -5,
+                            "y": 250,
+                            "h": 50,
+                            "w": 90
+                        }
+                    ],
+                    "layoutMode": "unknown",
+                    "type": "graph",
+                    "name": "30cd32f3-875a-434f-8e16-899012aab824",
+                    "children": [
+                        {
+                            "type": "finish",
+                            "name": "7edd88f82ceb313ee19d35d0c10ed3",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 56,
+                            "commandName": "Remove All Versions",
+                            "pluginName": "zOS Utility",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "applicationName": "${p:application.name}",
+                                "environmentName": "${p:environment.name}",
+                                "resourceId": "${p:resource.id}",
+                                "componentName": "${p:component.name}",
+                                "deployBasePath": "${BUZ_DEPLOY_BASE}"
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Remove All Versions",
+                            "children": []
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "Remove redundant versions",
+                "description": "Remove redundant versions in an environment. Redundant versions are these versions which are replaced completely by later deployed versions. ",
+                "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                "takesVersion": false,
+                "status": "",
+                "active": true,
+                "path": "componentTemplates\/73cd1cf1-d811-4087-b89b-67461bf039af\/processes\/0b17b569-93d2-4d7d-85c7-541b7577bc33",
+                "deleted": false,
+                "propDefs": [],
+                "rootActivity": {
+                    "edges": [
+                        {
+                            "to": "Remove Redundant Versions",
+                            "type": "ALWAYS",
+                            "value": ""
+                        },
+                        {
+                            "to": "41a9e39d9c9865d8001456cd9d7b54",
+                            "from": "Remove Redundant Versions",
+                            "type": "SUCCESS",
+                            "value": ""
+                        }
+                    ],
+                    "offsets": [
+                        {
+                            "name": "Remove Redundant Versions",
+                            "x": -95,
+                            "y": 166,
+                            "h": 60,
+                            "w": 270
+                        },
+                        {
+                            "name": "41a9e39d9c9865d8001456cd9d7b54",
+                            "x": -5,
+                            "y": 370,
+                            "h": 50,
+                            "w": 90
+                        }
+                    ],
+                    "layoutMode": "unknown",
+                    "type": "graph",
+                    "name": "04c86b5d-2a5f-4042-af29-962e54c00134",
+                    "children": [
+                        {
+                            "type": "finish",
+                            "name": "41a9e39d9c9865d8001456cd9d7b54",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 56,
+                            "commandName": "Remove Redundant Versions",
+                            "pluginName": "zOS Utility",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "isDryRun": "false",
+                                "applicationName": "${p:application.name}",
+                                "environmentName": "${p:environment.name}",
+                                "resourceId": "${p:resource.id}",
+                                "componentName": "${p:component.name}",
+                                "deployBasePath": "${BUZ_DEPLOY_BASE}"
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Remove Redundant Versions",
+                            "children": []
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "Remove redundant versions with manual verification",
+                "description": "Remove redundant versions in an environment. Redundant versions are these versions which are replaced completely by later deployed versions. ",
+                "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                "takesVersion": false,
+                "status": "",
+                "active": true,
+                "path": "componentTemplates\/73cd1cf1-d811-4087-b89b-67461bf039af\/processes\/9d2be528-eb9e-4aa4-9ebf-1a7152addcf9",
+                "deleted": false,
+                "propDefs": [],
+                "rootActivity": {
+                    "edges": [
+                        {
+                            "to": "0fbc34b5ab1760dad9dfef44d80cc6",
+                            "from": "Remove Redundant Versions",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Remove Redundant Versions",
+                            "from": "Review Versions To Be Removed",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Remove Redundant Versions Dry Run",
+                            "type": "ALWAYS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Review Versions To Be Removed",
+                            "from": "Remove Redundant Versions Dry Run",
+                            "type": "SUCCESS",
+                            "value": ""
+                        }
+                    ],
+                    "offsets": [
+                        {
+                            "name": "Remove Redundant Versions",
+                            "x": -99.5,
+                            "y": 344,
+                            "h": 60,
+                            "w": 270
+                        },
+                        {
+                            "name": "cb6d6cf1f7153da91b1bc30d718ea3",
+                            "x": 326.5,
+                            "y": 192,
+                            "h": 50,
+                            "w": 360
+                        },
+                        {
+                            "name": "Review Versions To Be Removed",
+                            "x": -85,
+                            "y": 230,
+                            "h": 60,
+                            "w": 260
+                        },
+                        {
+                            "name": "0fbc34b5ab1760dad9dfef44d80cc6",
+                            "x": 0,
+                            "y": 445,
+                            "h": 50,
+                            "w": 90
+                        },
+                        {
+                            "name": "Remove Redundant Versions Dry Run",
+                            "x": -99.5,
+                            "y": 107,
+                            "h": 60,
+                            "w": 290
+                        }
+                    ],
+                    "layoutMode": "unknown",
+                    "type": "graph",
+                    "name": "f1a4ccf8-af55-4889-8c7b-33265819b265",
+                    "children": [
+                        {
+                            "type": "finish",
+                            "name": "0fbc34b5ab1760dad9dfef44d80cc6",
+                            "children": []
+                        },
+                        {
+                            "templateName": "ApprovalCreated",
+                            "roleRestrictionData": {},
+                            "propDefs": [],
+                            "type": "componentManualTask",
+                            "name": "Review Versions To Be Removed",
+                            "children": []
+                        },
+                        {
+                            "name": "cb6d6cf1f7153da91b1bc30d718ea3",
+                            "text": "The versions will be removed after the work item is approved. ",
+                            "type": "note",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 56,
+                            "commandName": "Remove Redundant Versions",
+                            "pluginName": "zOS Utility",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "isDryRun": "true",
+                                "applicationName": "${p:application.name}",
+                                "environmentName": "${p:environment.name}",
+                                "resourceId": "${p:resource.id}",
+                                "componentName": "${p:component.name}",
+                                "deployBasePath": "${BUZ_DEPLOY_BASE}"
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Remove Redundant Versions Dry Run",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 56,
+                            "commandName": "Remove Redundant Versions",
+                            "pluginName": "zOS Utility",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "isDryRun": "false",
+                                "applicationName": "${p:application.name}",
+                                "environmentName": "${p:environment.name}",
+                                "resourceId": "${p:resource.id}",
+                                "componentName": "${p:component.name}",
+                                "deployBasePath": "${BUZ_DEPLOY_BASE}"
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Remove Redundant Versions",
+                            "children": []
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "Sample JCL submission process",
+                "description": "This process demonstrates usage of the JCL submission steps. ",
+                "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                "takesVersion": false,
+                "status": "",
+                "active": true,
+                "path": "componentTemplates\/73cd1cf1-d811-4087-b89b-67461bf039af\/processes\/1475b535-69db-4115-a424-eb55ab4a95c2",
+                "deleted": false,
+                "propDefs": [],
+                "rootActivity": {
+                    "edges": [
+                        {
+                            "to": "151c344677e54a10e4d6014864c9df",
+                            "from": "Submit Multiple Jobs",
+                            "type": "FAILURE",
+                            "value": ""
+                        },
+                        {
+                            "to": "SubmitJobStep",
+                            "type": "ALWAYS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Wait For Job",
+                            "from": "Do something else",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Submit Multiple Jobs",
+                            "type": "ALWAYS",
+                            "value": ""
+                        },
+                        {
+                            "to": "151c344677e54a10e4d6014864c9df",
+                            "from": "Submit  and Wait for Completion",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Submit  and Wait for Completion",
+                            "type": "ALWAYS",
+                            "value": ""
+                        },
+                        {
+                            "to": "151c344677e54a10e4d6014864c9df",
+                            "from": "Wait For Job",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Do something else",
+                            "from": "SubmitJobStep",
+                            "type": "SUCCESS",
+                            "value": ""
+                        }
+                    ],
+                    "offsets": [
+                        {
+                            "name": "Submit Multiple Jobs",
+                            "x": -55,
+                            "y": 220,
+                            "h": 60,
+                            "w": 190
+                        },
+                        {
+                            "name": "151c344677e54a10e4d6014864c9df",
+                            "x": -5,
+                            "y": 520,
+                            "h": 50,
+                            "w": 90
+                        },
+                        {
+                            "name": "53d6bbdcb73471b37d38502e7af703",
+                            "x": 50.5,
+                            "y": 149,
+                            "h": 56,
+                            "w": 190
+                        },
+                        {
+                            "name": "SubmitJobStep",
+                            "x": 300.5,
+                            "y": 119,
+                            "h": 60,
+                            "w": 180
+                        },
+                        {
+                            "name": "Submit  and Wait for Completion",
+                            "x": -369.5,
+                            "y": 220,
+                            "h": 60,
+                            "w": 250
+                        },
+                        {
+                            "name": "Do something else",
+                            "x": 261.5,
+                            "y": 220,
+                            "h": 60,
+                            "w": 260
+                        },
+                        {
+                            "name": "Wait For Job",
+                            "x": 301.5,
+                            "y": 340,
+                            "h": 60,
+                            "w": 180
+                        }
+                    ],
+                    "layoutMode": "unknown",
+                    "type": "graph",
+                    "name": "f787b187-291d-44e0-aa6b-72350548f11c",
+                    "children": [
+                        {
+                            "type": "finish",
+                            "name": "151c344677e54a10e4d6014864c9df",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 56,
+                            "commandName": "Submit Job",
+                            "pluginName": "zOS Utility",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "mvsFilename": "",
+                                "ussFilename": "",
+                                "jclString": "\/\/TESTJCL  JOB  ,NOTIFY=&SYSUID\n\/\/TIME     EXEC PGM=IKJEFT1A   \n\/\/SYSPRINT DD   SYSOUT=*       \n\/\/SYSTSPRT DD   SYSOUT=*       \n\/\/SYSTSIN  DD   *              \n  TIME                         \n\/* ",
+                                "jobCard": "${p?:deploy.env.jobstatement}",
+                                "explicitTokens": "",
+                                "explicitTokensForeachJob": "",
+                                "waitForJob": "true",
+                                "stopOnFail": "true",
+                                "timeout": "60",
+                                "showOutput": "ALL",
+                                "cutOff": "1000",
+                                "maxRC": "4",
+                                "hostname": "${p:jes.host}",
+                                "port": "${p:jes.monitor.port}",
+                                "userid": "${p:jes.user}",
+                                "password": "${p:jes.password}",
+                                "usePassticket": "true",
+                                "irrracfJarFile": "\/usr\/include\/java_classes\/IRRRacf.jar",
+                                "irrracfLibraryPath": "\/usr\/lib",
+                                "outputPagination": "false"
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Submit  and Wait for Completion",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 56,
+                            "commandName": "Submit Job",
+                            "pluginName": "zOS Utility",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "mvsFilename": "",
+                                "ussFilename": "",
+                                "jclString": "\/\/TESTJCL  JOB  ,NOTIFY=&SYSUID\n\/\/TIME     EXEC PGM=IKJEFT1A   \n\/\/SYSPRINT DD   SYSOUT=*       \n\/\/SYSTSPRT DD   SYSOUT=*       \n\/\/SYSTSIN  DD   *              \n  TIME                         \n\/*                             ",
+                                "jobCard": "${p?:deploy.env.jobstatement}",
+                                "explicitTokens": "",
+                                "explicitTokensForeachJob": "",
+                                "waitForJob": "false",
+                                "stopOnFail": "true",
+                                "timeout": "60",
+                                "showOutput": "ALL",
+                                "cutOff": "1000",
+                                "maxRC": "4",
+                                "hostname": "${p:jes.host}",
+                                "port": "${p:jes.monitor.port}",
+                                "userid": "${p:jes.user}",
+                                "password": "${p:jes.password}",
+                                "usePassticket": "true",
+                                "irrracfJarFile": "\/usr\/include\/java_classes\/IRRRacf.jar",
+                                "irrracfLibraryPath": "\/usr\/lib",
+                                "outputPagination": "false"
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "SubmitJobStep",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 56,
+                            "commandName": "Wait For Job",
+                            "pluginName": "zOS Utility",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "jobId": "${p:SubmitJobStep\/JobId}",
+                                "timeout": "60",
+                                "showOutput": "ALL",
+                                "cutOff": "1000",
+                                "maxRC": "4",
+                                "hostname": "${p:jes.host}",
+                                "port": "${p:jes.monitor.port}",
+                                "userid": "${p:jes.user}",
+                                "password": "${p:jes.password}",
+                                "usePassticket": "true",
+                                "irrracfJarFile": "\/usr\/include\/java_classes\/IRRRacf.jar",
+                                "irrracfLibraryPath": "\/usr\/lib"
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Wait For Job",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 56,
+                            "commandName": "Run TSO or ISPF Command",
+                            "pluginName": "zOS Utility",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "serviceType": "TSO",
+                                "tsoCommand": "TIME",
+                                "stopOnFail": "true",
+                                "reuseSession": "false",
+                                "showLog": "false",
+                                "ispProf": "",
+                                "ispfGatewayPath": "\/usr\/lpp\/ispf\/bin"
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Do something else",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 56,
+                            "commandName": "Submit Job",
+                            "pluginName": "zOS Utility",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "mvsFilename": "",
+                                "ussFilename": "",
+                                "jclString": "\/\/JOBNAME  JOB  ,<JOB PARAMETER>  \n\/\/TIME     EXEC PGM=IKJEFT1A      \n\/\/SYSPRINT DD   SYSOUT=*          \n\/\/SYSTSPRT DD   SYSOUT=*          \n\/\/SYSTSIN  DD   *                 \n  LISTDS '#DATASET#'           \n\/*                                \n",
+                                "jobCard": "${p?:deploy.env.jobstatement}",
+                                "explicitTokens": "JOBNAME->CHKDS\n<JOB PARAMETER>->NOTIFY=&SYSUID\n",
+                                "explicitTokensForeachJob": "#DATASET#->USER.PROCLIB\n\/\/\n#DATASET#->SYS1.PROCLIB\n\/\/\n#DATASET#->NOEXIST\n",
+                                "waitForJob": "true",
+                                "stopOnFail": "true",
+                                "timeout": "60",
+                                "showOutput": "ALL",
+                                "cutOff": "1000",
+                                "maxRC": "4",
+                                "hostname": "${p:jes.host}",
+                                "port": "${p:jes.monitor.port}",
+                                "userid": "${p:jes.user}",
+                                "password": "${p:jes.password}",
+                                "usePassticket": "true",
+                                "irrracfJarFile": "\/usr\/include\/java_classes\/IRRRacf.jar",
+                                "irrracfLibraryPath": "\/usr\/lib",
+                                "outputPagination": "false"
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Submit Multiple Jobs",
+                            "children": []
+                        },
+                        {
+                            "name": "53d6bbdcb73471b37d38502e7af703",
+                            "text": "Check existence of 3 data sets",
+                            "type": "note",
+                            "children": []
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "Uninstall",
+                "description": "Uninstall a version and restore the backup data sets",
+                "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                "takesVersion": true,
+                "inventoryActionType": "REMOVE",
+                "status": "Active",
+                "active": true,
+                "path": "componentTemplates\/73cd1cf1-d811-4087-b89b-67461bf039af\/processes\/3d113eaf-8395-4545-8fc7-11b3bbfc0401",
+                "deleted": false,
+                "propDefs": [],
+                "rootActivity": {
+                    "edges": [
+                        {
+                            "to": "Rollback Data Sets",
+                            "type": "ALWAYS",
+                            "value": ""
+                        },
+                        {
+                            "to": "22f91f0dc4e35ac3094f81a5c5281e",
+                            "from": "Rollback Data Sets",
+                            "type": "SUCCESS",
+                            "value": ""
+                        }
+                    ],
+                    "offsets": [
+                        {
+                            "name": "Rollback Data Sets",
+                            "x": -60,
+                            "y": 187,
+                            "h": 60,
+                            "w": 210
+                        },
+                        {
+                            "name": "22f91f0dc4e35ac3094f81a5c5281e",
+                            "x": 0,
+                            "y": 420,
+                            "h": 50,
+                            "w": 90
+                        }
+                    ],
+                    "layoutMode": "unknown",
+                    "type": "graph",
+                    "name": "e98ecb86-0b72-46a6-a4b8-5246b1c0ed38",
+                    "children": [
+                        {
+                            "type": "finish",
+                            "name": "22f91f0dc4e35ac3094f81a5c5281e",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 56,
+                            "commandName": "Rollback Data Sets",
+                            "pluginName": "zOS Utility",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "checkAccess": "true",
+                                "delBackUpFiles": "false",
+                                "preventRiskyRollback": "true",
+                                "dryRunForRisky": "false",
+                                "printLogs": "false",
+                                "hfsTargetDir": "${p?:deploy.env.hfs.targetdir}",
+                                "deployBasePath": "${BUZ_DEPLOY_BASE}",
+                                "tempDsnPrefix": "${p?:BUZ_TMP_DSN_PREFIX}",
+                                "environmentId": "${p:environment.id}",
+                                "versionId": "${p:version.id}",
+                                "componentId": "${p:component.id}",
+                                "versionName": "${p:version.name}",
+                                "versionType": "${p:version.type}",
+                                "componentName": "${p:component.name}",
+                                "resourceId": "${p:resource.id}"
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Rollback Data Sets",
+                            "children": []
+                        }
+                    ]
+                }
+            }
+        ],
+        "genericProcesses": [],
+        "teamMappings": [
+            {
+                "teamId": "7544081d-ae8f-4764-ad2f-c8e051f36cba",
+                "teamLabel": "Team 02",
+                "resourceTypeId": "20000000000000000000000000000102",
+                "resourceTypeName": "Component Template"
+            },
+            {
+                "teamId": "21c0450f-33e6-4f59-bae3-afd52a0780fc",
+                "teamLabel": "Team 01",
+                "resourceTypeId": "20000000000000000000000000000102",
+                "resourceTypeName": "Component Template"
+            },
+            {
+                "teamId": "0ecd723e-3e0f-4b31-ba2f-2b81c6945c89",
+                "teamLabel": "Team 05",
+                "resourceTypeId": "20000000000000000000000000000102",
+                "resourceTypeName": "Component Template"
+            },
+            {
+                "teamId": "b0cde5f7-2bee-4d98-b43c-5bc6b101a0f5",
+                "teamLabel": "Team 03",
+                "resourceTypeId": "20000000000000000000000000000102",
+                "resourceTypeName": "Component Template"
+            },
+            {
+                "teamId": "dadef3ec-4487-4288-8d30-bf90344e5c65",
+                "teamLabel": "Team 04",
+                "resourceTypeId": "20000000000000000000000000000102",
+                "resourceTypeName": "Component Template"
+            },
+            {
+                "teamId": "bfb287b9-9344-4a44-bb45-bb283027168a",
+                "teamLabel": "Team 06",
+                "resourceTypeId": "20000000000000000000000000000102",
+                "resourceTypeName": "Component Template"
+            },
+            {
+                "teamId": "15662f1e-af31-4f8e-8600-0cabd5103bba",
+                "teamLabel": "Team 07",
+                "resourceTypeId": "20000000000000000000000000000102",
+                "resourceTypeName": "Component Template"
+            },
+            {
+                "teamId": "9eca1a59-9da8-48d6-843b-fec1089c6a05",
+                "teamLabel": "Team 08",
+                "resourceTypeId": "20000000000000000000000000000102",
+                "resourceTypeName": "Component Template"
+            },
+            {
+                "teamId": "52f53ad3-7b38-4668-a45d-3ef0ee4008c1",
+                "teamLabel": "Team 09",
+                "resourceTypeId": "20000000000000000000000000000102",
+                "resourceTypeName": "Component Template"
+            },
+            {
+                "teamId": "ac186b6a-1369-4a57-b206-f2370516022c",
+                "teamLabel": "Team Demo",
+                "resourceTypeId": "20000000000000000000000000000102",
+                "resourceTypeName": "Component Template"
+            }
+        ]
+    },
+    "envPropDefs": [],
+    "resPropDefs": [],
+    "versionPropDefs": [
+        {
+            "name": "ucd.repository.type",
+            "label": "ucd.repository.type",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "HFS",
+            "required": false,
+            "description": "Do not modify or delete",
+            "placeholder": ""
+        },
+        {
+            "name": "cics-genapp-master-buildResultUrl",
+            "label": "cics-genapp-master-buildResultUrl",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "cics-genapp-78-buildResultUrl",
+            "label": "cics-genapp-78-buildResultUrl",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "cics-genapp-81-buildResultUrl",
+            "label": "cics-genapp-81-buildResultUrl",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "cics-genapp-84-buildResultUrl",
+            "label": "cics-genapp-84-buildResultUrl",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "cics-genapp-93-buildResultUrl",
+            "label": "cics-genapp-93-buildResultUrl",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "cics-genapp-96-buildResultUrl",
+            "label": "cics-genapp-96-buildResultUrl",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "cics-genapp-100-buildResultUrl",
+            "label": "cics-genapp-100-buildResultUrl",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "cics-genapp-110-buildResultUrl",
+            "label": "cics-genapp-110-buildResultUrl",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "cics-genapp-113-buildResultUrl",
+            "label": "cics-genapp-113-buildResultUrl",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "cics-genapp-116-buildResultUrl",
+            "label": "cics-genapp-116-buildResultUrl",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "cics-genapp-119-buildResultUrl",
+            "label": "cics-genapp-119-buildResultUrl",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "cics-genapp-125-buildResultUrl",
+            "label": "cics-genapp-125-buildResultUrl",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "cics-genapp-128-buildResultUrl",
+            "label": "cics-genapp-128-buildResultUrl",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "cics-genapp-131-buildResultUrl",
+            "label": "cics-genapp-131-buildResultUrl",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "cics-genapp-134-buildResultUrl",
+            "label": "cics-genapp-134-buildResultUrl",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "cics-genapp-137-buildResultUrl",
+            "label": "cics-genapp-137-buildResultUrl",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "cics-genapp-140-buildResultUrl",
+            "label": "cics-genapp-140-buildResultUrl",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "cics-genapp-143-buildResultUrl",
+            "label": "cics-genapp-143-buildResultUrl",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "cics-genapp-146-buildResultUrl",
+            "label": "cics-genapp-146-buildResultUrl",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "cics-genapp-149-buildResultUrl",
+            "label": "cics-genapp-149-buildResultUrl",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "cics-genapp-152-buildResultUrl",
+            "label": "cics-genapp-152-buildResultUrl",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "cics-genapp-155-buildResultUrl",
+            "label": "cics-genapp-155-buildResultUrl",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "cics-genapp-158-buildResultUrl",
+            "label": "cics-genapp-158-buildResultUrl",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        }
+    ],
+    "propSheetGroup": {"propSheets": [
+        {
+            "name": "template",
+            "properties": [
+                {
+                    "name": "ucd.repository.host",
+                    "description": "",
+                    "secure": false
+                },
+                {
+                    "name": "ucd.repository.location",
+                    "description": "",
+                    "secure": false
+                },
+                {
+                    "name": "ucd.repository.password",
+                    "value": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128keysfc1|x6rK7xVF16zsHj71CCkmgg==|yvG9k2MZYWy9Ok5hRoY9KQ==}",
+                    "description": "",
+                    "secure": true
+                },
+                {
+                    "name": "ucd.repository.user",
+                    "value": "admin",
+                    "description": "",
+                    "secure": false
+                }
+            ]
+        },
+        {
+            "name": "custom",
+            "properties": []
+        }
+    ]},
+    "processes": [{
+        "name": "Deploy GenApp to CICS",
+        "description": "Deploy to CICS",
+        "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+        "takesVersion": true,
+        "inventoryActionType": "ADD",
+        "status": "Active",
+        "configActionType": "ADD",
+        "active": true,
+        "path": "components\/17935640-c5bb-ae19-e4d1-79a58faa02a4\/processes\/17935664-f3f5-c984-98f6-fd31671b4060",
+        "deleted": false,
+        "propDefs": [],
+        "rootActivity": {
+            "edges": [
+                {
+                    "to": "3ffe877755264e88ccc45d6c96e5e7",
+                    "from": "NEWCOPY Programs",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "Bind Package & Plan",
+                    "from": "GenBndCard",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "Generate Program List",
+                    "from": "Deploy Data Sets",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "Download Artifacts for zOS",
+                    "type": "ALWAYS",
+                    "value": ""
+                },
+                {
+                    "to": "check-if-new-member",
+                    "from": "Generate Program List",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "if cics loads to newcopy",
+                    "from": "check-if-new-member",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "GenBndCard",
+                    "from": "Deploy Data Sets",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "NEWCOPY Programs",
+                    "from": "if cics loads to newcopy",
+                    "type": "VALUE",
+                    "value": ""
+                },
+                {
+                    "to": "3ffe877755264e88ccc45d6c96e5e7",
+                    "from": "Bind Package & Plan",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "3ffe877755264e88ccc45d6c96e5e7",
+                    "from": "if cics loads to newcopy",
+                    "type": "VALUE",
+                    "value": "\"\""
+                },
+                {
+                    "to": "Deploy Data Sets",
+                    "from": "Download Artifacts for zOS",
+                    "type": "SUCCESS",
+                    "value": ""
+                }
+            ],
+            "offsets": [
+                {
+                    "name": "Download Artifacts for zOS",
+                    "x": -200,
+                    "y": 150,
+                    "h": 110,
+                    "w": 550
+                },
+                {
+                    "name": "check-if-new-member",
+                    "x": -8.75,
+                    "y": 630,
+                    "h": 110,
+                    "w": 630
+                },
+                {
+                    "name": "if cics loads to newcopy",
+                    "x": -161.25,
+                    "y": 790,
+                    "h": 110,
+                    "w": 800
+                },
+                {
+                    "name": "Bind Package & Plan",
+                    "x": -418.75,
+                    "y": 630,
+                    "h": 110,
+                    "w": 380
+                },
+                {
+                    "name": "Deploy Data Sets",
+                    "x": -135,
+                    "y": 310,
+                    "h": 110,
+                    "w": 420
+                },
+                {
+                    "name": "Generate Program List",
+                    "x": 90,
+                    "y": 470,
+                    "h": 110,
+                    "w": 570
+                },
+                {
+                    "name": "GenBndCard",
+                    "x": -510,
+                    "y": 470,
+                    "h": 110,
+                    "w": 570
+                },
+                {
+                    "name": "NEWCOPY Programs",
+                    "x": -155,
+                    "y": 950,
+                    "h": 110,
+                    "w": 460
+                },
+                {
+                    "name": "3ffe877755264e88ccc45d6c96e5e7",
+                    "x": -5,
+                    "y": 1110,
+                    "h": 100,
+                    "w": 160
+                }
+            ],
+            "layoutMode": "auto",
+            "type": "graph",
+            "name": "53c5972d-e78b-46d3-a62b-be121a753c57",
+            "children": [
+                {
+                    "type": "finish",
+                    "name": "3ffe877755264e88ccc45d6c96e5e7",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": true,
+                    "impersonationUseSudo": false,
+                    "pluginVersion": 31,
+                    "commandName": "Download Artifacts for zOS",
+                    "pluginName": "UrbanCode Deploy Versioned File Storage",
+                    "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                    "properties": {
+                        "directoryOffset": ".",
+                        "versionId": "${p:version.id}",
+                        "versionName": "${p:version.name}",
+                        "serverUrl": "${p:server.url}",
+                        "compId": "${p:component.id}",
+                        "repositoryType": "${p?:version\/ucd.repository.type}",
+                        "resourceId": "${p:resource.id}"
+                    },
+                    "cachedAuthTokenRestriction": {
+                        "name": "System Default",
+                        "description": "Used by default for any plugin steps without a specified token restriction",
+                        "restrictions": [{
+                            "verb": "ALL",
+                            "url": "\/*"
+                        }]
+                    },
+                    "type": "plugin",
+                    "name": "Download Artifacts for zOS",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "pluginVersion": 56,
+                    "commandName": "Deploy Data Sets",
+                    "pluginName": "zOS Utility",
+                    "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                    "properties": {
+                        "pdsMapping": "${p?:deploy.env.pds.mapping}",
+                        "incrementalMode": "FULL",
+                        "containerFilter": "",
+                        "deleteCurrentContents": "false",
+                        "printLogs": "false",
+                        "checkAccess": "true",
+                        "doBackup": "false",
+                        "allowCreateDataset": "TRUE",
+                        "hfsTargetDir": "${p?:deploy.env.hfs.targetdir}",
+                        "allowCreateDirectory": "TRUE",
+                        "binderPath": "\/usr\/lib",
+                        "deployBasePath": "${BUZ_DEPLOY_BASE}",
+                        "tempDsnPrefix": "${p?:BUZ_TMP_DSN_PREFIX}",
+                        "versionMerge": "${p?:version\/ucd.version.ismerged}",
+                        "versionName": "${p:version.name}",
+                        "versionId": "${p:version.id}",
+                        "versionType": "${p:version.type}",
+                        "componentName": "${p:component.name}",
+                        "resourceId": "${p:resource.id}",
+                        "componentId": "${p:component.id}"
+                    },
+                    "cachedAuthTokenRestriction": {
+                        "name": "System Default",
+                        "description": "Used by default for any plugin steps without a specified token restriction",
+                        "restrictions": [{
+                            "verb": "ALL",
+                            "url": "\/*"
+                        }]
+                    },
+                    "type": "plugin",
+                    "name": "Deploy Data Sets",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": true,
+                    "impersonationUseSudo": false,
+                    "pluginVersion": 56,
+                    "commandName": "Generate Artifact Information",
+                    "pluginName": "zOS Utility",
+                    "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                    "properties": {
+                        "loopType": "Member",
+                        "orderBy": "ASC",
+                        "srcDatasetName": "",
+                        "datasetName": "",
+                        "memberName": "",
+                        "deployTypeName": "DBRM",
+                        "custProperties": "",
+                        "templateText": "BIND PACKAGE   (@COLLID@)   + \n     ISO(CS)                 + \n     CURRENTDATA(NO)         + \n     MEMBER(${member}) + \n     DEGREE(1)               + \n     DYNAMICRULES(BIND)      + \n     ACTION (REPLACE)        + \n     EXPLAIN(NO)             + \n     OWNER(IBMUSER)           + \n     QUALIFIER(GENASA1)       + \n     ENABLE(BATCH,CICS)       + \n     REL(DEALLOCATE)          + \n     VALIDATE(BIND)\n     \n     ",
+                        "failOnEmpty": "false",
+                        "ignoreUnresolved": "false",
+                        "deployBasePath": "${BUZ_DEPLOY_BASE}",
+                        "versionName": "${p:version.name}",
+                        "componentName": "${p:component.name}",
+                        "resourceId": "${p:resource.id}"
+                    },
+                    "cachedAuthTokenRestriction": {
+                        "name": "System Default",
+                        "description": "Used by default for any plugin steps without a specified token restriction",
+                        "restrictions": [{
+                            "verb": "ALL",
+                            "url": "\/*"
+                        }]
+                    },
+                    "type": "plugin",
+                    "name": "GenBndCard",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": true,
+                    "impersonationUseSudo": false,
+                    "pluginVersion": 56,
+                    "commandName": "Submit Job",
+                    "pluginName": "zOS Utility",
+                    "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                    "properties": {
+                        "mvsFilename": "",
+                        "ussFilename": "",
+                        "jclString": "\/\/GENBIND JOB ,'BIND GENAPP PROGRAMS',CLASS=A,MSGCLASS=H\n\/\/ SET HLQ=IBMUSER\n\/\/ SET DB2HLQ=DSNB10\n\/\/*\n\/\/BIND    EXEC PGM=IKJEFT01,DYNAMNBR=20\n\/\/STEPLIB  DD  DSN=&DB2HLQ..SDSNLOAD,DISP=SHR\n\/\/DBRMLIB  DD  DSN=IBMUSER.DBB.GENAPP.DBRM,DISP=SHR\n\/\/         DD  DSN=JENKINS.GENAPP.DBRM,DISP=SHR\n\/\/SYSPRINT DD  SYSOUT=*\n\/\/SYSTSPRT DD  SYSOUT=*\n\/\/SYSUDUMP DD  SYSOUT=*\n\/\/SYSIN  DD *\n\/*\n\/\/SYSTSIN DD *\n   DSN SYSTEM(@SYSID@)\n${GenBndCard\/text}\n\/\/* ---  BIND PLAN\nBIND PLAN (@PLANNAME@)                                       +\n     PKLIST(*.@COLLID@.*)                                  +\n     CURRENTDATA(NO)                                      +\n     ISO(CS)                                              +\n     ACTION (REP)                                         +\n     OWNER(IBMUSER)                                       +\n     QUALIFIER(GENASA1)                                   +\n     REL(DEALLOCATE)                                      +\n     ACQUIRE(USE)                                         +\n     RETAIN                                               +\n     NOREOPT(VARS)                                        +\n     VALIDATE(BIND) \n\/\/*\n   END\n\/*\n\/\/*END",
+                        "jobCard": "${p?:deploy.env.jobstatement}",
+                        "explicitTokens": "@COLLID@->${p:environment\/COLLID}\n@PLANNAME@->${p:environment\/PLANNAME}\n@SYSID@->${p:environment\/SYSID}",
+                        "explicitTokensForeachJob": "",
+                        "waitForJob": "true",
+                        "stopOnFail": "true",
+                        "timeout": "60",
+                        "showOutput": "ALL",
+                        "cutOff": "1000",
+                        "maxRC": "4",
+                        "hostname": "${p:resource\/jesHost}",
+                        "port": "${p:resource\/jesPort}",
+                        "userid": "${p:resource\/jesUser}",
+                        "password": "SYS1",
+                        "usePassticket": "false",
+                        "irrracfJarFile": "\/usr\/include\/java_classes\/IRRRacf.jar",
+                        "irrracfLibraryPath": "\/usr\/lib",
+                        "outputPagination": "false"
+                    },
+                    "cachedAuthTokenRestriction": {
+                        "name": "System Default",
+                        "description": "Used by default for any plugin steps without a specified token restriction",
+                        "restrictions": [{
+                            "verb": "ALL",
+                            "url": "\/*"
+                        }]
+                    },
+                    "type": "plugin",
+                    "name": "Bind Package & Plan",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "pluginVersion": 56,
+                    "commandName": "Generate Artifact Information",
+                    "pluginName": "zOS Utility",
+                    "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                    "properties": {
+                        "loopType": "Member",
+                        "orderBy": "ASC",
+                        "srcDatasetName": "",
+                        "datasetName": "",
+                        "memberName": "",
+                        "deployTypeName": "\/.*LOAD\/",
+                        "custProperties": "",
+                        "templateText": "${member},",
+                        "failOnEmpty": "false",
+                        "ignoreUnresolved": "false",
+                        "deployBasePath": "${BUZ_DEPLOY_BASE}",
+                        "versionName": "${p:version.name}",
+                        "componentName": "${p:component.name}",
+                        "resourceId": "${p:resource.id}"
+                    },
+                    "cachedAuthTokenRestriction": {
+                        "name": "System Default",
+                        "description": "Used by default for any plugin steps without a specified token restriction",
+                        "restrictions": [{
+                            "verb": "ALL",
+                            "url": "\/*"
+                        }]
+                    },
+                    "type": "plugin",
+                    "name": "Generate Program List",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": true,
+                    "impersonationUseSudo": false,
+                    "postProcessingScript": {
+                        "id": "371a6ec1-4350-49fd-a09b-7019216deb77",
+                        "name": "HIGHLIGHT NEWCOPY",
+                        "description": "",
+                        "body": "var exit = properties.get('exitCode');\n\nscanner.register(\"NEWCOPY\", function(lineNumber, line) {\n     scanner.addLOI(lineNumber);\n});\n\nscanner.scan();\n\nif (exit == 0) {\n    properties.put('Status', 'Success');\n}\nelse {\n     properties.put('Status', 'Failure');\n}\n"
+                    },
+                    "pluginVersion": 41,
+                    "commandName": "New copy resources",
+                    "pluginName": "CICS TS",
+                    "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                    "properties": {
+                        "resourceNameList": "${p:check-if-new-member\/existingMembers}",
+                        "resourceType": "PROGRAM",
+                        "maxRetryTimes": "3",
+                        "retryInterval": "",
+                        "hostname": "${p:cics.host}",
+                        "port": "${p:cics.cmciport}",
+                        "cicsplex": "${p?:cics.cicsplex}",
+                        "cicsscope": "${p?:cics.scope}",
+                        "username": "${p?:cics.username}",
+                        "password": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128keysfc1|FvuGGxLchfP\/Mv5i4m8SQQ==|HVkeETYmCb\/B1kHpfET3zg==}",
+                        "ssl": "${p?:cics.ssl}",
+                        "ks_location": "${p?:cics.kslocation}",
+                        "ks_type": "${p?:cics.kstype}",
+                        "ks_password": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128keysfc1|pqswKNsLzi+U57ifx8SCyQ==|YltZCksxLfZ9yZiY0aTILLXGK8pUGgdalqoGh+UBcWk=}",
+                        "ts_location": "${p?:cics.tslocation}",
+                        "ts_type": "${p?:cics.tstype}",
+                        "ts_password": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128keysfc1|d4sUoJ5SdARHKza+U\/x1RA==|KHRmtppJeQ96\/b8OtlM2LGc+GHCMs8ZqAZpvPX0m3U8=}"
+                    },
+                    "cachedAuthTokenRestriction": {
+                        "name": "System Default",
+                        "description": "Used by default for any plugin steps without a specified token restriction",
+                        "restrictions": [{
+                            "verb": "ALL",
+                            "url": "\/*"
+                        }]
+                    },
+                    "type": "plugin",
+                    "name": "NEWCOPY Programs",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "postProcessingScript": {
+                        "id": "17ce1db7-41e7-9f1e-eeb6-48075f7c86bb",
+                        "name": "Enabled Resources List",
+                        "description": "From the step output obtain a list of the programs that are enabled. ",
+                        "body": "var exit = properties.get('exitCode');\n\/\/instancate empty strings to add members to\nvar existingMembers=\"\";\nvar newMembers=\"\";\n\nscanner.register(\"Resource\", function(lineNumber, line) {\n    \/\/output log info on members found in step output\n     commandOut.print(\"Line number: \"+lineNumber+\"\\n\");\n     commandOut.print(\"Line: \"+line+\"\\n\");\n     \/\/find member name between double quotes\n     var firstQuoteIndex = line.indexOf(\"\\\"\");\n     var secondQuoteIndex = line.indexOf(\"\\\"\", firstQuoteIndex+1);\n     var member=line.substring(firstQuoteIndex+1, secondQuoteIndex);\n     \/\/output found memeber\n     commandOut.print(\"member: \"+member+\"\\n\");\n     \n     \/\/if member is enabled, add to existig member list, else add to new member ist\n     if(line.indexOf(\"ENABLED\")!=-1){\n         existingMembers+=member+\",\";\n         commandOut.print(member+\" is not new.\");\n     }else{\n         newMembers+=member+\",\";\n         commandOut.print(member+\" is new.\");\n     }\n     commandOut.print(\"\\n\");\n});\nscanner.scan();\n\/\/add member lists to output properties.\nproperties.put(\"existingMembers\", existingMembers);\nproperties.put(\"newMembers\", newMembers);\n\n\/\/defualt always have step succeed. \nproperties.put('Status', 'Success');\n"
+                    },
+                    "pluginVersion": 41,
+                    "commandName": "Check enable status of resources",
+                    "pluginName": "CICS TS",
+                    "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                    "properties": {
+                        "resourceNameList": "${Generate Program List\/text}",
+                        "resourceType": "PROGRAM",
+                        "expectedStatus": "ENABLED",
+                        "timeout": "0",
+                        "hostname": "${p:cics.host}",
+                        "port": "${p:cics.cmciport}",
+                        "cicsplex": "${p?:cics.cicsplex}",
+                        "cicsscope": "${p?:cics.scope}",
+                        "username": "${p?:cics.username}",
+                        "password": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128keysfc1|gpXOCxoUFoaN4RYE5btvFg==|2ku1p7sVdWczoKzXhIF+HrD9MZObSItE2Fzj3f8P8cc=}",
+                        "ssl": "${p?:cics.ssl}",
+                        "ks_location": "${p?:cics.kslocation}",
+                        "ks_type": "${p?:cics.kstype}",
+                        "ks_password": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128keysfc1|LcfvheXnD7PXpZaGAFTihw==|\/Ad+Gz2Mbxw5OqT1ptNUfCKNrI9I\/WbwMWKUfHYZE3w=}",
+                        "ts_location": "${p?:cics.tslocation}",
+                        "ts_type": "${p?:cics.tstype}",
+                        "ts_password": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128keysfc1|sHhyQxt0nGk5uAF7APPU0g==|\/TwyNnz4rV5HY9JSPC\/DZLdLS\/RU9xNhR+vzs1XYwzc=}"
+                    },
+                    "cachedAuthTokenRestriction": {
+                        "name": "System Default",
+                        "description": "Used by default for any plugin steps without a specified token restriction",
+                        "restrictions": [{
+                            "verb": "ALL",
+                            "url": "\/*"
+                        }]
+                    },
+                    "type": "plugin",
+                    "name": "check-if-new-member",
+                    "children": []
+                },
+                {
+                    "propertyName": "${p:check-if-new-member\/existingMembers}",
+                    "type": "switch",
+                    "name": "if cics loads to newcopy",
+                    "children": []
+                }
+            ]
+        }
+    }],
+    "configTemplates": [],
+    "genericProcesses": [],
+    "teamMappings": [],
+    "tags": []
+}

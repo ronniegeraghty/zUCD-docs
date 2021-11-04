@@ -1,0 +1,1 @@
+(self.webpackChunkz_ucd_docs=self.webpackChunkz_ucd_docs||[]).push([[614],{5957:function(s){"use strict";s.exports=JSON.parse('{"allTagsPath":"/zUCD-docs/blog/tags","slug":"ucd","name":"ucd","count":1,"permalink":"/zUCD-docs/blog/tags/ucd"}')}}]);
