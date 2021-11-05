@@ -1,0 +1,1 @@
+(self.webpackChunkz_ucd_docs=self.webpackChunkz_ucd_docs||[]).push([[535],{6353:function(s){"use strict";s.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Handling New CICS LOADs in UCD","permalink":"/zUCD-docs/blog/20211104-handling-new-cics-loads-in-ucd"}]}')}}]);
