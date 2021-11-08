@@ -4,7 +4,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   title: 'zUCD Docs',
-  tagline: 'Dinosaurs are cool',
+  tagline: 'Docs on using UrbanCode Deploy for z/OS applications.',
   url: 'https://ronniegeraghty.github.io',
   baseUrl: '/zUCD-docs/',
   onBrokenLinks: 'throw',
@@ -50,16 +50,12 @@ module.exports = {
           title: 'Community',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+              label: 'IBM DevOps',
+              href: 'https://community.ibm.com/community/user/wasdevops/communities/devops-home',
             },
             {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
+              label: 'UrbanCode',
+              href: 'https://community.ibm.com/community/user/wasdevops/communities/community-home?CommunityKey=9adfe6b6-2e23-4895-8b27-38b93b5e152c',
             },
           ],
         },
@@ -77,7 +73,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      //copyright: `Copyright © ${new Date().getFullYear()}. Built with Docusaurus.`,
     },
     prism: {
       theme: lightCodeTheme,
